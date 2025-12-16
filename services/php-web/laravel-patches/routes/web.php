@@ -6,6 +6,7 @@ Route::get('/', fn() => redirect('/dashboard'));
 
 // Панели
 Route::get('/dashboard', [\App\Http\Controllers\DashboardController::class, 'index']);
+Route::get('/iss',       [\App\Http\Controllers\IssController::class,       'index']);
 Route::get('/osdr',      [\App\Http\Controllers\OsdrController::class,      'index']);
 
 // Прокси к rust_iss
