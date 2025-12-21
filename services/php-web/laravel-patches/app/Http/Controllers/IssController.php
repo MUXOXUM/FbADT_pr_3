@@ -1,19 +1,26 @@
 <?php
 
 namespace App\Http\Controllers;
+use Illuminate\Http\Request;
 
 class IssController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        $base = getenv('RUST_BASE') ?: 'http://rust_iss:3000';
+        $serviceUrl = getenv('RUST_BASE') ?: 'http://rust_iss:3000';
 
-        $last  = @file_get_contents($base.'/last');
-        $trend = @file_get_contents($base.'/iss/trend');
+        // МКС position
+        $currentRawResponse = @file_get_contents($serviceUrl . '/last');
+        $currentPosition    = $currentRawResponse ? json_decode($currentRawResponse, true) : [];
+        
+        // data MKC history
+        $historyRawResponse = @file_get_contents($serviceUrl . '/iss/trend');
+        $historyData        = $historyRawResponse ? json_decode($historyRawResponse, true) : [];
 
-        $lastJson  = $last  ? json_decode($last,  true) : [];
-        $trendJson = $trend ? json_decode($trend, true) : [];
-
-        return view('iss', ['last' => $lastJson, 'trend' => $trendJson, 'base' => $base]);
+        return view('iss', [
+            'last'  => $currentPosition,
+            'trend' => $historyData,
+            'base'  => $serviceUrl,
+        ]);
     }
 }
