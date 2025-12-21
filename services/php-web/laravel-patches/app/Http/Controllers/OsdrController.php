@@ -17,7 +17,7 @@ class OsdrController extends Controller
     public function index(Request $request)
     {
         // validate limit parameter
-        $limit = max(1, min(100, (int) $request->query('limit', 20)));
+        $limit = max(1, min(100, (int) $request->query('limit', 10)));
 
         // get data from OSDR service
         $data = $this->client->getList($limit);

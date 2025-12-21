@@ -110,9 +110,44 @@ pub async fn fetch_apod(st: &AppState) -> Result<(), ApiError> {
     let url = "https://api.nasa.gov/planetary/apod";
     let client = Client::builder().timeout(Duration::from_secs(30)).build()?;
     let mut req = client.get(url).query(&[("thumbs","true")]);
-    if !st.nasa_key.is_empty() { req = req.query(&[("api_key",&st.nasa_key)]); }
-    let json: Value = req.send().await?.json().await?;
-    write_cache(&st.pool, "apod", json).await
+    if !st.nasa_key.is_empty() { 
+        req = req.query(&[("api_key",&st.nasa_key)]);
+    } else {
+        tracing::warn!("NASA API key is empty, using demo mode");
+    }
+    
+    let response = req.send().await?;
+    let status = response.status();
+    
+    // Сначала читаем как текст для отладки
+    let response_text = response.text().await?;
+    
+    // Логируем для диагностики
+    tracing::debug!("APOD API response status: {}", status);
+    tracing::debug!("APOD response (first 500 chars): {}", 
+        response_text.chars().take(500).collect::<String>());
+    
+    // Пытаемся распарсить JSON
+    match serde_json::from_str::<Value>(&response_text) {
+        Ok(json) => {
+            write_cache(&st.pool, "apod", json).await
+        }
+        Err(e) => {
+            tracing::error!("Failed to parse APOD response as JSON: {}", e);
+            tracing::error!("Full response: {}", response_text);
+            
+            // Создаем свою ошибку без попытки конвертировать в reqwest::Error
+            Err(ApiError::Internal(format!(
+                "Failed to parse APOD JSON: {}. Server returned: {}",
+                e, 
+                if response_text.len() > 200 {
+                    format!("{}...", &response_text[..200])
+                } else {
+                    response_text
+                }
+            )))
+        }
+    }
 }
 
 pub async fn fetch_neo_feed(st: &AppState) -> Result<(), ApiError> {
@@ -124,11 +159,44 @@ pub async fn fetch_neo_feed(st: &AppState) -> Result<(), ApiError> {
         ("start_date", start.to_string()),
         ("end_date", today.to_string()),
     ]);
-    if !st.nasa_key.is_empty() { req = req.query(&[("api_key",&st.nasa_key)]); }
-    let json: Value = req.send().await?.json().await?;
-    write_cache(&st.pool, "neo", json).await
+    if !st.nasa_key.is_empty() { 
+        req = req.query(&[("api_key",&st.nasa_key)]);
+    } else {
+        tracing::warn!("NASA API key is empty, using demo mode");
+    }
+    
+    let response = req.send().await?;
+    let status = response.status();
+    
+    // Сначала читаем как текст для отладки
+    let response_text = response.text().await?;
+    
+    // Логируем для диагностики
+    tracing::debug!("NEO API response status: {}", status);
+    tracing::debug!("NEO response (first 500 chars): {}", 
+        response_text.chars().take(500).collect::<String>());
+    
+    // Пытаемся распарсить JSON
+    match serde_json::from_str::<Value>(&response_text) {
+        Ok(json) => {
+            write_cache(&st.pool, "neo", json).await
+        }
+        Err(e) => {
+            tracing::error!("Failed to parse NEO response as JSON: {}", e);
+            tracing::error!("Full response: {}", response_text);
+            
+            Err(ApiError::Internal(format!(
+                "Failed to parse NEO JSON: {}. Server returned: {}",
+                e,
+                if response_text.len() > 200 {
+                    format!("{}...", &response_text[..200])
+                } else {
+                    response_text
+                }
+            )))
+        }
+    }
 }
-
 pub async fn fetch_donki(st: &AppState) -> Result<(), ApiError> {
     let _ = fetch_donki_flr(st).await;
     let _ = fetch_donki_cme(st).await;

@@ -13,7 +13,7 @@ class OsdrClient
         $this->baseUrl = getenv('RUST_BASE') ?: 'http://rust_iss:3000';
     }
 
-    public function getList(int $limit = 20): array
+    public function getList(int $limit = 10): array
     {
         $url = $this->baseUrl . '/osdr/list?limit=' . $limit;
 
