@@ -9,6 +9,21 @@
     </div>
   </div>
 
+  <!-- График -->
+  <div class="card mb-5">
+    <div class="card-header bg-surface-variant border-bottom border-outline py-3">
+      <div class="d-flex align-items-center gap-2">
+        <i class="bi bi-lightning-charge-fill fs-4 text-primary"></i>
+        <h4 class="mb-0 text-on-surface">Напряжение и температура</h4>
+      </div>
+    </div>
+    <div class="card-body p-4">
+      <div class="chart-container position-relative" style="height: 400px;">
+        <canvas id="telemetryChart"></canvas>
+      </div>
+    </div>
+  </div>
+
   <div class="text-center mb-5">
     <div class="d-flex flex-wrap justify-content-center gap-3">
       <a href="/telemetry/export/csv" class="btn btn-primary d-flex align-items-center gap-2 px-4 py-3">
@@ -27,22 +42,7 @@
       </a>
     </div>
   </div>
-
-  <!-- График -->
-  <div class="card mb-5">
-    <div class="card-header bg-surface-variant border-bottom border-outline py-3">
-      <div class="d-flex align-items-center gap-2">
-        <i class="bi bi-lightning-charge-fill fs-4 text-primary"></i>
-        <h4 class="mb-0 text-on-surface">Напряжение и температура</h4>
-      </div>
-    </div>
-    <div class="card-body p-4">
-      <div class="chart-container position-relative" style="height: 400px;">
-        <canvas id="telemetryChart"></canvas>
-      </div>
-    </div>
-  </div>
-
+  
   <!-- Таблица -->
   <div class="card">
     <div class="card-header bg-surface-variant border-bottom border-outline py-3">
@@ -245,7 +245,7 @@ document.addEventListener('DOMContentLoaded', () => {
             display: true,
             position: 'top',
             labels: {
-              color: '#212529', // Белый цвет легенды
+              color: '#212529', 
               font: {
                 size: 12,
                 family: 'system-ui'
@@ -257,8 +257,8 @@ document.addEventListener('DOMContentLoaded', () => {
           },
           tooltip: {
             backgroundColor: 'rgba(30, 30, 30, 0.95)',
-            titleColor: '#212529',
-            bodyColor: '#212529',
+            titleColor: '#ffffff',
+            bodyColor: '#ffffff',
             borderColor: 'rgba(255, 255, 255, 0.2)',
             borderWidth: 1,
             cornerRadius: 6,

@@ -7,15 +7,15 @@
       <div class="d-flex justify-content-between align-items-center mb-4">
         <div class="d-flex align-items-center gap-3">
           <div>
-            <h1 class="mb-1">NASA OSDR</h1>
-            <p class="text-on-surface-variant mb-0">Открытые научные данные NASA</p>
+            <h1 class="mb-1">Репозиторий статей NASA</h1>
+            <p class="text-on-surface-variant mb-0">Открытые научные данные NASA Open Science Data Repository</p>
           </div>
         </div>
           <code class="ms-1">{{ $src }}</code>
       </div>
 
       <div class="card bg-surface-variant p-3 mb-4">
-        <div class="row g-3 align-items-center">
+        <div class="row g-3 align-items-end">
           <div class="col-auto">
             <label class="form-label text-on-surface-variant mb-2">Поиск по</label>
             <select id="searchCol" class="form-select">

@@ -5,7 +5,7 @@
   <div class="d-flex align-items-center gap-3 mb-4">
     <div>
       <h1 class="mb-1">Международная космическая станция</h1>
-      <p class="text-on-surface-variant mb-0">Данные в реальном времени</p>
+      <p class="text-on-surface-variant mb-0">Данные в реальном времени от NASA ISS</p>
     </div>
   </div>
 

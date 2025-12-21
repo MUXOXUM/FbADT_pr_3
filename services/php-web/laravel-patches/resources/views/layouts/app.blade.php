@@ -454,7 +454,7 @@
   <nav class="navbar navbar-expand-lg mb-4">
     <div class="container">
       <span class="navbar-brand">
-        Space Dashboard
+        Проект "Касиопея"
       </span>
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
@@ -462,22 +462,22 @@
       <div class="collapse navbar-collapse" id="navbarNav">
         <div class="navbar-nav ms-auto gap-1">
           <a class="nav-link {{ request()->is('dashboard') ? 'active' : '' }}" href="/dashboard">
-            <i class="bi bi-speedometer2 me-1"></i> Dashboard
+            <i class="bi bi-speedometer2 me-1"></i> Дашборд
           </a>
           <a class="nav-link {{ request()->is('astro') ? 'active' : '' }}" href="/astro">
-            <i class="bi bi-stars me-1"></i> AstronomyAPI
+            <i class="bi bi-stars me-1"></i> Небесные события
           </a>
           <a class="nav-link {{ request()->is('iss') ? 'active' : '' }}" href="/iss">
-            <i class="bi bi-database me-1"></i> ISS
+            <i class="bi bi-database me-1"></i> Информация об МКС
           </a>
           <a class="nav-link {{ request()->is('osdr') ? 'active' : '' }}" href="/osdr">
-            <i class="bi bi-database me-1"></i> OSDR
+            <i class="bi bi-database me-1"></i> Репозиторий NASA
           </a>
           <a class="nav-link {{ request()->is('telemetry') ? 'active' : '' }}" href="/telemetry">
-            <i class="bi bi-graph-up me-1"></i> Telemetry
+            <i class="bi bi-graph-up me-1"></i> "Телеметрия"
           </a>
           <a class="nav-link {{ request()->is('cms') ? 'active' : '' }}" href="/cms">
-            <i class="bi bi-gear me-1"></i> CMS
+            <i class="bi bi-gear me-1"></i> Тест CMS
           </a>
         </div>
       </div>
