@@ -37,7 +37,7 @@
       </div>
     </div>
     <div class="card-body p-4">
-      <div class="chart-container position-relative" style="height: 300px;">
+      <div class="chart-container position-relative" style="height: 400px;">
         <canvas id="telemetryChart"></canvas>
       </div>
     </div>
@@ -198,7 +198,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const ctx = document.getElementById('telemetryChart').getContext('2d');
     
     // Настройки по умолчанию для Chart.js
-    Chart.defaults.color = '#ffffff'; // Белый цвет для всех текстов
+    Chart.defaults.color = '#212529'; // Белый цвет для всех текстов
     Chart.defaults.borderColor = 'rgba(255, 255, 255, 0.2)'; // Белая сетка с прозрачностью
     
     new Chart(ctx, {
@@ -245,7 +245,7 @@ document.addEventListener('DOMContentLoaded', () => {
             display: true,
             position: 'top',
             labels: {
-              color: '#ffffff', // Белый цвет легенды
+              color: '#212529', // Белый цвет легенды
               font: {
                 size: 12,
                 family: 'system-ui'
@@ -257,8 +257,8 @@ document.addEventListener('DOMContentLoaded', () => {
           },
           tooltip: {
             backgroundColor: 'rgba(30, 30, 30, 0.95)',
-            titleColor: '#ffffff',
-            bodyColor: '#ffffff',
+            titleColor: '#212529',
+            bodyColor: '#212529',
             borderColor: 'rgba(255, 255, 255, 0.2)',
             borderWidth: 1,
             cornerRadius: 6,
@@ -292,7 +292,7 @@ document.addEventListener('DOMContentLoaded', () => {
               borderDash: [3, 3] // Пунктирная сетка
             },
             ticks: {
-              color: '#ffffff', // Белые подписи оси X
+              color: '#212529', // Белые подписи оси X
               maxRotation: 45,
               font: {
                 size: 11,
@@ -314,7 +314,7 @@ document.addEventListener('DOMContentLoaded', () => {
             title: {
               display: true,
               text: 'Напряжение (В)',
-              color: '#ffffff', // Белый заголовок оси
+              color: '#212529', // Белый заголовок оси
               font: {
                 size: 12,
                 family: 'system-ui'
@@ -326,7 +326,7 @@ document.addEventListener('DOMContentLoaded', () => {
               borderDash: [3, 3] // Пунктирная сетка
             },
             ticks: {
-              color: '#ffffff', // Белые подписи оси Y
+              color: '#212529', // Белые подписи оси Y
               font: {
                 size: 11,
                 family: 'system-ui'
@@ -354,7 +354,7 @@ document.addEventListener('DOMContentLoaded', () => {
             title: {
               display: true,
               text: 'Температура (°C)',
-              color: '#ffffff', // Белый заголовок оси
+              color: '#212529', // Белый заголовок оси
               font: {
                 size: 12,
                 family: 'system-ui'
@@ -367,7 +367,7 @@ document.addEventListener('DOMContentLoaded', () => {
               borderDash: [3, 3] // Пунктирная сетка
             },
             ticks: {
-              color: '#ffffff', // Белые подписи оси Y1
+              color: '#212529', // Белые подписи оси Y1
               font: {
                 size: 11,
                 family: 'system-ui'

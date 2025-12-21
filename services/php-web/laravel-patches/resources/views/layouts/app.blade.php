@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="ru" data-bs-theme="dark">
+<html lang="ru" data-bs-theme="light">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -9,17 +9,17 @@
   <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"/>
   <style>
     :root {
-      --md-surface: #121212;
-      --md-surface-variant: #1e1e1e;
-      --md-primary: #bb86fc;
-      --md-primary-variant: #3700b3;
-      --md-secondary: #03dac6;
-      --md-on-surface: #ffffff;
-      --md-on-surface-variant: #b0b0b0;
-      --md-outline: #3a3a3a;
-      --md-elevation-1: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
-      --md-elevation-2: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
-      --md-elevation-3: 0 10px 20px rgba(0,0,0,0.19), 0 6px 6px rgba(0,0,0,0.23);
+      --md-surface: #f8f9fa;
+      --md-surface-variant: #e9ecef;
+      --md-primary: #0d6efd;
+      --md-primary-variant: #0a58ca;
+      --md-secondary: #6c757d;
+      --md-on-surface: #212529;
+      --md-on-surface-variant: #6c757d;
+      --md-outline: #dee2e6;
+      --md-elevation-1: 0 1px 3px rgba(0,0,0,0.05), 0 1px 2px rgba(0,0,0,0.1);
+      --md-elevation-2: 0 3px 6px rgba(0,0,0,0.07), 0 3px 6px rgba(0,0,0,0.1);
+      --md-elevation-3: 0 10px 20px rgba(0,0,0,0.08), 0 6px 6px rgba(0,0,0,0.1);
       --md-radius: 12px;
       --md-radius-small: 8px;
     }
@@ -57,12 +57,13 @@
       background: var(--md-surface) !important;
       border-bottom: 1px solid var(--md-outline);
       padding: 0.75rem 0;
+      box-shadow: var(--md-elevation-1);
     }
 
     .navbar-brand {
-      font-weight: 500;
+      font-weight: 600;
       font-size: 1.25rem;
-      color: var(--md-on-surface) !important;
+      color: var(--md-primary) !important;
       display: flex;
       align-items: center;
       gap: 0.5rem;
@@ -98,7 +99,7 @@
 
     .nav-link:hover {
       color: var(--md-on-surface) !important;
-      background: rgba(255, 255, 255, 0.05);
+      background: rgba(13, 110, 253, 0.05);
       transform: translateY(-1px);
     }
 
@@ -108,7 +109,7 @@
 
     .nav-link.active {
       color: var(--md-primary) !important;
-      background: rgba(187, 134, 252, 0.08);
+      background: rgba(13, 110, 253, 0.08);
     }
 
     .nav-link.active::before {
@@ -117,7 +118,7 @@
 
     /* Карточки */
     .card {
-      background: var(--md-surface-variant);
+      background: white;
       border: 1px solid var(--md-outline);
       border-radius: var(--md-radius);
       box-shadow: var(--md-elevation-1);
@@ -128,10 +129,17 @@
       box-shadow: var(--md-elevation-2);
     }
 
+    .card-header {
+      background: var(--md-surface-variant);
+      border-bottom: 1px solid var(--md-outline);
+      color: var(--md-on-surface);
+      font-weight: 600;
+    }
+
     /* Кнопки */
     .btn-primary {
       background: var(--md-primary);
-      color: #000000;
+      color: white;
       border: none;
       border-radius: 20px;
       padding: 0.625rem 1.5rem;
@@ -143,7 +151,7 @@
     }
 
     .btn-primary:hover {
-      background: var(--md-primary);
+      background: var(--md-primary-variant);
       box-shadow: var(--md-elevation-2);
       transform: translateY(-1px);
     }
@@ -153,9 +161,26 @@
       box-shadow: var(--md-elevation-1);
     }
 
+    .btn-outline {
+      background: transparent;
+      border: 1px solid var(--md-outline);
+      color: var(--md-on-surface-variant);
+      border-radius: 20px;
+      padding: 0.625rem 1.5rem;
+      font-weight: 500;
+      transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    .btn-outline:hover {
+      background: var(--md-surface-variant);
+      border-color: var(--md-primary);
+      color: var(--md-primary);
+      transform: translateY(-1px);
+    }
+
     /* Формы */
     .form-control {
-      background: var(--md-surface-variant);
+      background: white;
       border: 1px solid var(--md-outline);
       color: var(--md-on-surface);
       border-radius: var(--md-radius-small);
@@ -164,11 +189,19 @@
     }
 
     .form-control:focus {
-      background: var(--md-surface-variant);
+      background: white;
       border-color: var(--md-primary);
       color: var(--md-on-surface);
-      box-shadow: 0 0 0 2px rgba(187, 134, 252, 0.15);
+      box-shadow: 0 0 0 2px rgba(13, 110, 253, 0.15);
       outline: none;
+    }
+
+    .form-select {
+      background: white;
+      border: 1px solid var(--md-outline);
+      color: var(--md-on-surface);
+      border-radius: var(--md-radius-small);
+      padding: 0.75rem 1rem;
     }
 
     /* Таблицы */
@@ -181,7 +214,7 @@
       background: var(--md-surface-variant);
       border-bottom: 2px solid var(--md-outline);
       color: var(--md-on-surface);
-      font-weight: 500;
+      font-weight: 600;
       padding: 1rem;
     }
 
@@ -191,7 +224,7 @@
     }
 
     .table tbody tr:hover {
-      background: rgba(255, 255, 255, 0.04);
+      background: rgba(13, 110, 253, 0.03);
     }
 
     .table tbody td {
@@ -207,7 +240,7 @@
     /* Заголовки */
     h1, h2, h3, h4, h5, h6 {
       color: var(--md-on-surface);
-      font-weight: 500;
+      font-weight: 600;
     }
 
     /* Цвета текста */
@@ -219,22 +252,31 @@
       color: var(--md-secondary) !important;
     }
 
+    .text-on-surface {
+      color: var(--md-on-surface) !important;
+    }
+
+    .text-on-surface-variant {
+      color: var(--md-on-surface-variant) !important;
+    }
+
     .cursor-pointer {
       cursor: pointer;
     }
 
     /* Details */
     details {
-      background: var(--md-surface-variant);
+      background: white;
       border: 1px solid var(--md-outline);
       border-radius: var(--md-radius);
       padding: 1rem;
       margin-top: 1rem;
+      box-shadow: var(--md-elevation-1);
     }
 
     summary {
       color: var(--md-primary);
-      font-weight: 500;
+      font-weight: 600;
       list-style: none;
       display: flex;
       align-items: center;
@@ -245,6 +287,7 @@
       content: '▶';
       font-size: 0.75rem;
       transition: transform 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+      color: var(--md-primary);
     }
 
     details[open] summary::before {
@@ -253,13 +296,14 @@
 
     /* Pre/Code */
     pre, code {
-      background: var(--md-surface);
+      background: var(--md-surface-variant);
       border: 1px solid var(--md-outline);
       border-radius: var(--md-radius-small);
       padding: 1rem;
       margin: 0;
       overflow-x: auto;
       font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', monospace;
+      color: var(--md-on-surface);
     }
 
     /* Карта Leaflet */
@@ -269,20 +313,22 @@
       border: 1px solid var(--md-outline);
       overflow: hidden;
       z-index: 1;
+      box-shadow: var(--md-elevation-1);
     }
 
     .leaflet-container {
-      background: var(--md-surface) !important;
+      background: white !important;
     }
 
     .leaflet-control {
-      background: var(--md-surface-variant) !important;
+      background: white !important;
       border: 1px solid var(--md-outline) !important;
       color: var(--md-on-surface) !important;
+      box-shadow: var(--md-elevation-1) !important;
     }
 
     .leaflet-popup-content {
-      background: var(--md-surface-variant) !important;
+      background: white !important;
       color: var(--md-on-surface) !important;
     }
 
@@ -290,10 +336,11 @@
     .chart-container {
       position: relative;
       height: 800px;
-      background: var(--md-surface-variant);
+      background: white;
       border-radius: var(--md-radius);
       border: 1px solid var(--md-outline);
       padding: 1rem;
+      box-shadow: var(--md-elevation-1);
     }
   
     /* Новые стили для предотвращения выхода текста за границы */
@@ -325,6 +372,80 @@
       font-weight: 500;
       letter-spacing: 0.3px;
     }
+
+    /* Алерты */
+    .alert {
+      border: 1px solid var(--md-outline);
+      border-radius: var(--md-radius);
+      box-shadow: var(--md-elevation-1);
+    }
+
+    .alert-danger {
+      background-color: #f8d7da;
+      border-color: #f5c2c7;
+      color: #842029;
+    }
+
+    /* Загрузчики */
+    .bg-surface {
+      background: var(--md-surface) !important;
+    }
+
+    .bg-surface-variant {
+      background: var(--md-surface-variant) !important;
+    }
+
+    /* Маркер МКС для светлой темы */
+    .iss-marker {
+      background: var(--md-primary);
+      border-radius: 50%;
+      padding: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 0 0 4px rgba(13, 110, 253, 0.3);
+    }
+
+    .iss-marker i {
+      color: white;
+      font-size: 16px;
+    }
+
+    /* Градиенты и акценты */
+    .border-outline {
+      border-color: var(--md-outline) !important;
+    }
+
+    .text-muted {
+      color: #adb5bd !important;
+    }
+
+    /* Адаптивные улучшения */
+    @media (max-width: 768px) {
+      .nav-link {
+        padding: 0.5rem 0.75rem !important;
+        margin: 0.125rem;
+      }
+      
+      .card {
+        border-radius: var(--md-radius-small);
+      }
+      
+      #map {
+        height: 250px;
+      }
+    }
+
+    /* Плавный скролл */
+    html {
+      scroll-behavior: smooth;
+    }
+
+    /* Выделение текста */
+    ::selection {
+      background-color: rgba(13, 110, 253, 0.2);
+      color: var(--md-on-surface);
+    }
   </style>
   <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
@@ -332,7 +453,9 @@
 <body>
   <nav class="navbar navbar-expand-lg mb-4">
     <div class="container">
-      <span class="navbar-brand">Space Dashboard</span>
+      <span class="navbar-brand">
+        Space Dashboard
+      </span>
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>

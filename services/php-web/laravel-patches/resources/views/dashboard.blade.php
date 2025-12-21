@@ -338,26 +338,19 @@ const ApiUtils = {
 
 // Главная функция инициализации
 document.addEventListener('DOMContentLoaded', async function () {
-  console.log('🚀 Инициализация dashboard...');
-  
   try {
     // Инициализируем МКС компоненты
     await initializeISS();
     
     // Инициализируем JWST галерею
     await initializeJWST();
-    
-    console.log('✅ Dashboard успешно инициализирован');
   } catch (error) {
-    console.error('❌ Ошибка инициализации dashboard:', error);
     showError('Ошибка загрузки данных. Пожалуйста, обновите страницу.');
   }
 });
 
 // Инициализация МКС
 async function initializeISS() {
-  console.log('🛰️ Инициализация МКС...');
-  
   try {
     // Инициализация карты
     const mapElement = document.getElementById('map');
@@ -365,7 +358,6 @@ async function initializeISS() {
     
     // Проверяем, загружена ли библиотека Leaflet
     if (typeof L === 'undefined') {
-      console.warn('⚠️ Leaflet не загружен');
       mapElement.innerHTML = `
         <div class="w-100 h-100 d-flex flex-column align-items-center justify-content-center bg-surface-variant">
           <i class="bi bi-exclamation-triangle fs-1 text-warning mb-3"></i>
@@ -427,7 +419,6 @@ async function initializeISS() {
     // Функция обновления данных МКС
     async function updateIssData() {
       try {
-        console.log('📡 Обновление данных МКС...');
         const data = await ApiUtils.fetchWithRetry('/api/iss/last');
         const payload = data.payload || {};
         
@@ -476,7 +467,6 @@ async function initializeISS() {
         updateChartsData(payload, charts);
         
       } catch (error) {
-        console.warn('⚠️ Не удалось обновить данные МКС:', error.message);
         // Используем демо-данные при ошибке
         const demoPayload = {
           velocity: Math.floor(Math.random() * 1000) + 27000,
@@ -513,10 +503,7 @@ async function initializeISS() {
     const updateInterval = {{ $issEverySeconds ?? 120 }} * 1000;
     setInterval(updateIssData, updateInterval);
     
-    console.log('✅ МКС инициализирована');
-    
   } catch (error) {
-    console.error('❌ Ошибка инициализации МКС:', error);
     document.getElementById('map').innerHTML = `
       <div class="w-100 h-100 d-flex flex-column align-items-center justify-content-center bg-surface-variant">
         <i class="bi bi-exclamation-triangle fs-1 text-danger mb-3"></i>
@@ -531,12 +518,9 @@ async function initializeISS() {
 
 // Инициализация графиков
 function initializeCharts() {
-  console.log('📊 Инициализация графиков...');
-  
   try {
     // Проверяем, загружена ли библиотека Chart.js
     if (typeof Chart === 'undefined') {
-      console.warn('⚠️ Chart.js не загружен');
       return null;
     }
     
@@ -618,12 +602,9 @@ function initializeCharts() {
     document.getElementById('speedChartLoader').style.display = 'none';
     document.getElementById('altChartLoader').style.display = 'none';
     
-    console.log('✅ Графики инициализированы');
-    
     return { speedChart, altChart };
     
   } catch (error) {
-    console.error('❌ Ошибка инициализации графиков:', error);
     return null;
   }
 }
@@ -660,8 +641,6 @@ function updateChartsData(payload, charts) {
 
 // Инициализация JWST галереи
 async function initializeJWST() {
-  console.log('🔭 Инициализация JWST галереи...');
-  
   const gallery = document.getElementById('galleryTrack');
   const sourceInfo = document.getElementById('sourceInfo');
   const countInfo = document.getElementById('countInfo');
@@ -674,7 +653,6 @@ async function initializeJWST() {
   const nextBtn = document.getElementById('nextBtn');
   
   if (!gallery || !previewBlock) {
-    console.warn('⚠️ Элементы галереи не найдены');
     return;
   }
   
@@ -810,11 +788,7 @@ async function initializeJWST() {
         displayPreview(items[0]);
       }
       
-      console.log(`✅ Загружено ${items.length} изображений JWST`);
-      
     } catch (error) {
-      console.error('❌ Ошибка загрузки галереи JWST:', error);
-      
       gallery.innerHTML = `
         <div class="d-flex align-items-center justify-content-center" style="min-height: 280px; min-width: 100%;">
           <div class="text-center text-danger">
@@ -851,8 +825,6 @@ async function initializeJWST() {
   
   // Начальная загрузка
   await loadGallery({ source: 'jpg', perPage: 24 });
-  
-  console.log('✅ JWST галерея инициализирована');
 }
 
 // Вспомогательная функция для отображения ошибок
